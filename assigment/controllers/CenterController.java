@@ -26,6 +26,12 @@ public class CenterController {
 //go through back through this controller to repo of center and their we take method find center
         return (center == null ? "Center was not found!" : center.toString());
     }
+    public String startCenter(int id) {
+        Boolean center = repo.startCenter(id);
+//go through back through this controller to repo of center and their we take method find center
+        return (center == false ? "Center do not have enough worker!" : "Center opened, you are welcome!");
+        //center opened and now students can study their
+    }
 
     public String getAllCenters() {
         List<Center> centers = repo.getAllCenters();
