@@ -110,4 +110,44 @@ public class CenterRepo implements ICenterRepo {
         }
         return null;
     }
+    @Override
+    public boolean startCenter(int id) {
+        Connection con = null;
+        try {
+            con = db.getConnection();
+            String sql = "SELECT name FROM director WHERE id=?";
+            PreparedStatement st1 = con.prepareStatement(sql);
+            st1.setInt(1, id);
+            String sql1 = "SELECT name FROM mentor WHERE id=?";
+            PreparedStatement st2 = con.prepareStatement(sql1);
+            st2.setInt(1, id);
+            String sql2 = "SELECT name FROM teacher WHERE id=?";
+            PreparedStatement st3 = con.prepareStatement(sql2);
+            st3.setInt(1, id);
+
+//same as before, but sql change to select
+            ResultSet rs = st1.executeQuery();
+            ResultSet rs2 = st2.executeQuery();
+            ResultSet rs3 = st3.executeQuery();
+            if (rs.next() & rs2.next() & rs3.next()) {
+                String sql4 = "INSERT INTO center(work) VALUES (?)";
+                PreparedStatement st4 = con.prepareStatement(sql4); //put sql line through our connection(con)
+                st4.setString(1, "1");
+            };// I have a work a type that shows that center work or not, so if we have at least one of each worker it starts working
+
+                return true;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }//mistakes in enterings
+        }
+        return false;
+    }
 }
