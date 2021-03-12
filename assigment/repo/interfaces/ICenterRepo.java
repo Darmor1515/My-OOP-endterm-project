@@ -9,4 +9,5 @@ public interface ICenterRepo {
     boolean createCenter(Center center);
     Center getCenter(int id);
     List<Center> getAllCenters();
+    boolean startCenter(int id);// main change
 }
